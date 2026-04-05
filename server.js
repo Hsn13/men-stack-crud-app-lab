@@ -7,12 +7,10 @@ const mongoose = require('mongoose');
 const Car = require("./models/Car");
 const methodOverride = require("method-override");
 
-
-
-app.use(methodOverride("_method"));
 app.use(morgan('dev'));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs"); 
 
 //DB connection
@@ -63,11 +61,7 @@ res.render('homepage');
 
 app.put('/cars/:id', async (req, res) => {
   try {
-    const car = await Car.findById(req.params.id);
-    car.modelName = req.body.modelName;
-    car.year = req.body.year;
-    car.category = req.body.category;
-    await car.save();
+    await Car.findByIdAndUpdate(req.params.id, req.body);
     res.redirect("/");
   } catch (error) {
     console.error(error);
@@ -75,9 +69,14 @@ app.put('/cars/:id', async (req, res) => {
   }
 });
 
-app.post('/cars/:id/delete', async (req, res) =>{
-  await Car.findByIdAndDelete(req.params.id);
-  res.redirect("/");
+app.delete("/cars/:id", async (req, res) => {
+  try {
+    await Car.findByIdAndDelete(req.params.id);
+    res.redirect("/");
+  } catch (error) {
+    console.error(error);
+    res.status(400).send("Error deleting car");
+  }
 });
 
 app.listen(3000,()=>

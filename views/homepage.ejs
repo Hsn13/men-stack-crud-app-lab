@@ -11,16 +11,21 @@
   <hr>
 
   <% allData.forEach(car => { %>
-  <h3><%= car.modelName %> (<%= car.year %>)</h3>
-        <p><strong>Category:</strong> <%= car.category %> </p>
-        <form action="/cars/<%= car._id %>" method="GET">
-  <button type="submit">Edit</button>
-</form>
-<br>
-<form action="/cars/<%= car._id %>/delete" method="POST">
-  <button type="submit">Delete</button>
-</form>
-        <% }); %>
+  <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+    
+    <h3><%= car.modelName %> (<%= car.year %>)</h3>
+    <p><strong>Category:</strong> <%= car.category %></p>
+
+    <!-- Edit -->
+    <a href="/cars/<%= car._id %>">Edit</a>
+
+    <!-- Delete -->
+    <form action="/cars/<%= car._id %>?_method=DELETE" method="POST" style="display:inline;">
+      <button onclick="return confirm('Delete this car?')">Delete</button>
+    </form>
+
+  </div>
+<% }) %>
         
 </body>
 </html>
