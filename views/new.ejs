@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New car</title>
+</head>
+<body>
+  <form action="/new" method="post">
+ <label>Model Name: <input type="text" name="modelName" required></label><br>
+  <label>Year: <input type="number" name="year" value="2000" required></label><br>
+  <label>Colour: <input type="color" name="colour"></label><br>
+
+<label for="category">Select Category:</label>
+<select name="category" id="category">
+  <% categories.forEach(category => { %>
+    <option value="<%= category %>">
+      <%= category %>
+    </option>
+  <% }) %>
+</select><br>
+
+    <button type="submit">Add</button>
+  </form>
+</body>
+</html>

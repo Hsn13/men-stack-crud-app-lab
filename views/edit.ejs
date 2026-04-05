@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Car</title>
+</head>
+<body>
+  <h1>Edit Car</h1>
+
+<form action="/cars/<%= car._id %>?_method=PUT" method="POST">
+  <label>Model Name:</label>
+  <input type="text" name="modelName" value="<%= car.modelName %>" />
+
+  <label>Year:</label>
+  <input type="number" name="year" value="<%= car.year %>" />
+
+  <label>Category:</label>
+  <select name="category">
+    <% categories.forEach(cat => { %>
+      <option value="<%= cat %>" <%= car.category === cat ? 'selected' : '' %>>
+        <%= cat %>
+      </option>
+    <% }) %>
+  </select>
+
+  <button type="submit">Update</button>
+</form>
+</body>
+</html>
